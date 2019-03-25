@@ -19,8 +19,8 @@
 #include <cppunit/TestResult.h>
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
-
 #include <cppunit/TestFailure.h>
+#include <iomanip>
 
 /**
  * @brief Main test driver for CPPUNIT test suite.
@@ -32,7 +32,7 @@ class ProgressListener : public CPPUNIT_NS::TestListener {
 public:
 
     ProgressListener()
-            : m_lastTestFailed(false) {
+            : m_lastTestFailed(false), m_points_possible{0}, m_points_earned{0} {
     }
 
     // Prevents the use of the copy constructor.
@@ -49,6 +49,7 @@ public:
         CPPUNIT_NS::stdCOut().flush();
 
         m_lastTestFailed = false;
+        m_points_possible += 1;
     }
 
     void addFailure(const CPPUNIT_NS::TestFailure &failure) override {
@@ -57,13 +58,25 @@ public:
     }
 
     void endTest(CPPUNIT_NS::Test *test) override {
-        if (!m_lastTestFailed)
+        if (!m_lastTestFailed) {
             CPPUNIT_NS::stdCOut() << " : OK";
+            m_points_earned += 1;
+        }
         CPPUNIT_NS::stdCOut() << "\n";
+    }
+
+    int getPointsPossible() const {
+        return m_points_possible;
+    }
+
+    int getPointsEarned() const {
+        return m_points_earned;
     }
 
 private:
     bool m_lastTestFailed;
+    int m_points_possible;
+    int m_points_earned;
 };
 
 int main() {
@@ -86,6 +99,22 @@ int main() {
     // Print test in a compiler compatible format.
     CPPUNIT_NS::CompilerOutputter outputter(&result, CPPUNIT_NS::stdCOut());
     outputter.write();
+
+    int earned{progress.getPointsEarned()};
+    int possible{progress.getPointsPossible()};
+
+    if (possible > 0) {
+        CPPUNIT_NS::stdCOut() << "\n";
+        CPPUNIT_NS::stdCOut() << "Correctness Grade: ";
+        CPPUNIT_NS::stdCOut() << earned;
+        CPPUNIT_NS::stdCOut() << "/";
+        CPPUNIT_NS::stdCOut() << possible;
+        CPPUNIT_NS::stdCOut() << "\n";
+        CPPUNIT_NS::stdCOut() << "Correctness Normalized Grade: ";
+        CPPUNIT_NS::stdCOut() << std::fixed;
+        CPPUNIT_NS::stdCOut() << std::setprecision(1) << 3.0 * earned / possible;
+        CPPUNIT_NS::stdCOut() << "/3.0\n";
+    }
 
     return result.wasSuccessful() ? 0 : 1;
 }
