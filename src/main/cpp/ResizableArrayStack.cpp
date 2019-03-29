@@ -8,6 +8,7 @@
  */
 
 #include "ResizableArrayStack.h"
+
  template <typename ItemType>
 csc232::ResizableArrayStack<ItemType>::ResizableArrayStack () {
  items = new ItemType [DEFAULT_CAPACITY];
@@ -26,35 +27,61 @@ csc232::ResizableArrayStack<ItemType>::ResizableArrayStack (const ResizableArray
 }
 
 template <typename ItemType>
-csc232::ResizableArrayStack<ItemType>& csc232::ResizableArrayStack<ItemType>::operator = (const ResizableArrayStack& rhs) {
- return 0;
+bool csc232::ResizableArrayStack<ItemType>::isEmpty() const {
+ return top == 0;
 }
 
 template <typename ItemType>
-bool csc232::ResizableArrayStack<ItemType>::isEmpty() const {
- return false;
-}
-template <typename ItemType>
 bool csc232::ResizableArrayStack<ItemType>::push (const ItemType &newEntry) {
- return false;
+    ItemType* oldArray = items;
+ if (top == capacity){
+     capacity = capacity * 2;
+     items = new ItemType [capacity];
+
+     for (int i = 0; i < top; i++)
+     {
+         items [i] = oldArray [i];
+
+     }
+
+ }
+
+ items [top] = newEntry;
+ top++;
+
+ return true;
+
 }
 
 template <typename ItemType>
 bool csc232::ResizableArrayStack<ItemType>::pop () {
- return false;
+ if (isEmpty()){
+     return false;
+ }
+ else {
+     top--;
+     return true;
+ }
 }
 
 template <typename ItemType>
 ItemType csc232::ResizableArrayStack<ItemType>::peek () const {
- return 0;
+ return items [top - 1];
 }
 
 template <typename ItemType>
-int csc232::ResizableArrayStack<ItemType>::getCapacity() {
- return 0;
+int csc232::ResizableArrayStack<ItemType>::getCapacity()const {
+ return capacity;
 }
 
 template <typename ItemType>
 csc232::ResizableArrayStack<ItemType>::~ResizableArrayStack() {
  delete [] items;
 }
+
+template class csc232::ResizableArrayStack<int>;
+template class csc232::ResizableArrayStack<long>;
+template class csc232::ResizableArrayStack<double>;
+template class csc232::ResizableArrayStack<float>;
+template class csc232::ResizableArrayStack<std::string>;
+template class csc232::ResizableArrayStack<char>;

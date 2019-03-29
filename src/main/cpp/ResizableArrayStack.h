@@ -12,6 +12,8 @@
 #endif //CSC232_HW05_RESIZABLEARRAYSTACK_H
 
 #include "StackInterface.h"
+#include <cstdlib>
+#include <string>
 
 namespace csc232 {
     template <typename ItemType>
@@ -87,7 +89,7 @@ namespace csc232 {
          * @param capacity
          * @return
          */
-        int getCapacity()  ;
+        int getCapacity() const ;
 
         /**
          * Destroys this stack and frees its assigned memory

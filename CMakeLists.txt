@@ -58,7 +58,9 @@ set(CMAKE_CXX_STANDARD 14)
 # Configure targets
 set(SRC_MAIN_FILES
         src/main/cpp/Main.cpp
-        src/main/cpp/StackInterface.h src/main/cpp/ResizableArrayStack.h src/main/cpp/ResizableArrayStack.cpp)
+        src/main/cpp/StackInterface.h
+        src/main/cpp/ResizableArrayStack.h
+        src/main/cpp/ResizableArrayStack.cpp)
 
 set(SRC_DEMO_FILES
         src/main/cpp/Demo.cpp
