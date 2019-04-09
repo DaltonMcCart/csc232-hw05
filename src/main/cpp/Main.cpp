@@ -14,7 +14,6 @@
 int main() {
     std::cout << "Welcome, Main!" << std::endl;
 
-    auto arrayThing = new csc232::ResizableArrayStack<int> ();
 
     return EXIT_SUCCESS;
 }

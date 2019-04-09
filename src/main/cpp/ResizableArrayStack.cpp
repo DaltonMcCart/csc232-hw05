@@ -24,6 +24,7 @@ csc232::ResizableArrayStack<ItemType>::ResizableArrayStack (const ResizableArray
    items [i] = rhs.items [i];
   }
   top = rhs.top;
+  capacity = rhs.capacity;
 }
 
 template <typename ItemType>
@@ -33,8 +34,9 @@ bool csc232::ResizableArrayStack<ItemType>::isEmpty() const {
 
 template <typename ItemType>
 bool csc232::ResizableArrayStack<ItemType>::push (const ItemType &newEntry) {
-    ItemType* oldArray = items;
+
  if (top == capacity){
+     ItemType* oldArray = items;
      capacity = capacity * 2;
      items = new ItemType [capacity];
 
@@ -50,6 +52,20 @@ bool csc232::ResizableArrayStack<ItemType>::push (const ItemType &newEntry) {
  top++;
 
  return true;
+
+}
+
+template <typename ItemType>
+csc232::ResizableArrayStack<ItemType> &csc232::ResizableArrayStack<ItemType>::operator=(const csc232::ResizableArrayStack<ItemType> &rhs){
+    items = new ItemType [rhs.getCapacity()];
+    for (int i = 0; i < top; i++)
+        {
+            items [i] = rhs.items [i];
+
+        }
+        top = rhs.top;
+    capacity = rhs.capacity;
+    return *this;
 
 }
 

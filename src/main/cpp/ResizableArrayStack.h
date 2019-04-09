@@ -20,6 +20,7 @@ namespace csc232 {
     class ResizableArrayStack : public StackInterface <ItemType> {
     public:
 
+
         /**
          * Default Constructor
          */
@@ -96,6 +97,7 @@ namespace csc232 {
          */
        ~ResizableArrayStack();
 
+
     private:
         static const int DEFAULT_CAPACITY = 10;
         ItemType* items;
@@ -104,4 +106,6 @@ namespace csc232 {
 
 
     };
+
+
 }

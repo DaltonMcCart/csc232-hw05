@@ -70,6 +70,7 @@ set(SRC_TEST_FILES
         src/test/cpp/UnitTestRunner.cpp
         src/main/cpp/StackInterface.h
         src/main/cpp/ResizableArrayStack.h
+        src/main/cpp/ResizableArrayStack.cpp
         src/test/cpp/ResizableArrayStackUnitTest.cpp
         src/test/cpp/ResizableArrayStackUnitTest.h)
 
